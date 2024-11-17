@@ -129,27 +129,31 @@ for i = 1:length(theta)
     end
 end    
 
+%% Plotting
 figure;
-plot(meet_senarios(:,1),meet_senarios(:,2), 'bo', 'MarkerSize', 5);
+% Orbits
+plot(x_low, y_low, 'g', LineWidth=1.5)
 hold on;
-plot(meet_senarios(:,7),meet_senarios(:,8), 'y*', 'MarkerSize', 5);
-axis equal;
+plot(x_ISS, y_ISS, 'b', LineWidth=1.5)
+tran_entry = plot(meet_senarios(:,1),meet_senarios(:,2), 'ko', 'MarkerSize', 5, 'MarkerFaceColor', 'c');
+randevous = plot(meet_senarios(:,7),meet_senarios(:,8), 'ko', 'MarkerSize', 5, 'MarkerFaceColor', 'r');
 
-% %% Plotting
-% figure;
-% plot(x_low, y_low, 'g', LineWidth=1.5)
-% hold on;
-% plot(x_ISS, y_ISS, 'b', LineWidth=1.5)
-% earthBlue = [0, 0.2, 0.6]; % Earth's blue color
-% fill(x_Earth, y_Earth, earthBlue, 'EdgeColor', 'black');
-% axis equal;
-% ylim([-9000 9000])
-% xlim([-9000 9000])
-% xlabel('x-axis [km]')
-% ylabel('y-axis [km]')
-% set(gca, 'Color', 'k');
-% set(gca, 'FontSize', 24);
-% 
+% Earth
+earthBlue = [0, 0.2, 0.6]; % Earth's blue color
+fill(x_Earth, y_Earth, earthBlue);
+axis equal;
+ylim([-9000 9000])
+xlim([-9000 9000])
+xlabel('x-axis [km]')
+ylabel('y-axis [km]')
+set(gca, 'Color', 'k'); % Set plot background to black
+set(gca, 'FontSize', 24); % Increase font size
+
+legendObj = legend([tran_entry, randevous], ...
+    'Transfer orbit entries for randezvous', 'Possible randezvous locations', ...
+    'Location', 'northeast', 'TextColor', [1, 1, 0], 'FontSize', 24);
+set(legendObj, 'Color', 'k');
+
 % tran_entry = plot(x1,y1, 'ko', 'MarkerSize', 10, 'MarkerFaceColor', 'c'); 
 % tran_exit = plot(x2,y2, 'ko', 'MarkerSize', 10, 'MarkerFaceColor', 'r');
 % initial_ISS = plot(x3,y3, 'ks', 'MarkerSize', 10, 'MarkerFaceColor', 'm'); 
