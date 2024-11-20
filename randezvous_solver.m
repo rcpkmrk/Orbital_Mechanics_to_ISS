@@ -102,8 +102,16 @@ while true
 end
 
 E_future_ISS = E_future_ISS*180/pi;
-theta4 = (cosd(E_future_ISS) - e_ISS) / (1 - e_ISS*cosd(E_future_ISS));
-theta4 = round(acosd(theta4));
+if E_future_ISS >= 360
+    E_future_ISS = E_future_ISS - 360;
+    theta4 = (cosd(E_future_ISS) - e_ISS) / (1 - e_ISS*cosd(E_future_ISS));
+    theta4 = round(acosd(theta4));
+else
+    theta4 = (cosd(E_future_ISS) - e_ISS) / (1 - e_ISS*cosd(E_future_ISS));
+    theta4 = round(acosd(theta4));
+    theta4 = 360 - theta4;
+end 
+
 index2 = find(theta == theta4);
 x4 = x_ISS(index2); % future ISS coordinate
 y4 = y_ISS(index2); % future ISS coordinate
